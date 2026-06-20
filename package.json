@@ -5,12 +5,18 @@
   "description": "OTTO EMP - arquivos publicos e download do agente interno",
   "main": "server.js",
   "scripts": {
+
+    
     "start": "node server.js",
+    
     "dev": "node server.js"
   },
+  
   "dependencies": {
+    
     "cors": "^2.8.5",
     "express": "^4.18.3"
+    
   },
   "engines": {
     "node": ">=18"
