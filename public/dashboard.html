@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>Dashboard OTTO</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Inter,Arial,sans-serif;
+}
+
+:root{
+  --bg:#eef6ff;
+  --card:#ffffff;
+  --text:#0f172a;
+  --muted:#64748b;
+  --line:rgba(148,163,184,.28);
+  --blue:#2563eb;
+  --green:#16a34a;
+  --red:#dc2626;
+  --yellow:#f59e0b;
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at top left,rgba(37,99,235,.16),transparent 30%),
+    linear-gradient(135deg,#eef6ff,#f8fafc);
+  color:var(--text);
+  overflow-x:hidden;
+}
+
+.app{
+  width:100%;
+  min-height:100vh;
+  padding:18px;
+}
+
+.topo{
+  background:rgba(255,255,255,.94);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:24px;
+  box-shadow:0 18px 55px rgba(15,23,42,.08);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:18px;
+  margin-bottom:18px;
+}
+
+.titulo{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  min-width:0;
+}
+
+.icone{
+  width:60px;
+  height:60px;
+  border-radius:22px;
+  background:linear-gradient(135deg,#2563eb,#22c55e);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:30px;
+  box-shadow:0 16px 40px rgba(37,99,235,.28);
+  flex:none;
+}
+
+h1{
+  font-size:clamp(26px,3vw,42px);
+  font-weight:950;
+  letter-spacing:-.07em;
+  line-height:1;
+}
+
+.sub{
+  margin-top:7px;
+  color:var(--muted);
+  font-size:14px;
+  font-weight:750;
+}
+
+.tempoReal{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  justify-content:flex-end;
+}
+
+.pill{
+  height:42px;
+  padding:0 14px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#fff;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#1e293b;
+  font-size:13px;
+  font-weight:900;
+  box-shadow:0 8px 20px rgba(15,23,42,.05);
+}
+
+.pulse{
+  width:10px;
+  height:10px;
+  border-radius:999px;
+  background:#22c55e;
+  box-shadow:0 0 0 0 rgba(34,197,94,.5);
+  animation:pulse 1.3s infinite;
+}
+
+.pulse.off{
+  background:#dc2626;
+  animation:none;
+  box-shadow:none;
+}
+
+@keyframes pulse{
+  0%{box-shadow:0 0 0 0 rgba(34,197,94,.55)}
+  70%{box-shadow:0 0 0 9px rgba(34,197,94,0)}
+  100%{box-shadow:0 0 0 0 rgba(34,197,94,0)}
+}
+
+.resumo{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:14px;
+  margin-bottom:18px;
+}
+
+.cardResumo{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:20px;
+  box-shadow:0 14px 42px rgba(15,23,42,.07);
+}
+
+.cardResumo span{
+  color:var(--muted);
+  font-size:12px;
+  font-weight:950;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+}
+
+.cardResumo strong{
+  display:block;
+  margin-top:10px;
+  font-size:clamp(32px,4vw,48px);
+  font-weight:950;
+  letter-spacing:-.08em;
+  line-height:1;
+}
+
+.total strong{color:var(--blue)}
+.online strong{color:var(--green)}
+.instavel strong{color:var(--yellow)}
+.offline strong{color:var(--red)}
+
+.filtros{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:14px;
+  box-shadow:0 14px 42px rgba(15,23,42,.06);
+  display:grid;
+  grid-template-columns:1.4fr 1fr 1fr auto;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+input,select,button{
+  height:50px;
+  border-radius:17px;
+  border:1px solid rgba(148,163,184,.32);
+  background:#f8fafc;
+  padding:0 14px;
+  color:#0f172a;
+  font-size:14px;
+  font-weight:850;
+  outline:none;
+}
+
+input:focus,select:focus{
+  border-color:rgba(37,99,235,.9);
+  box-shadow:0 0 0 4px rgba(37,99,235,.10);
+  background:#fff;
+}
+
+button{
+  border:none;
+  cursor:pointer;
+  color:#fff;
+  background:linear-gradient(135deg,#2563eb,#22c55e);
+  box-shadow:0 13px 32px rgba(37,99,235,.24);
+}
+
+.lista{
+  display:grid;
+  gap:12px;
+}
+
+.device{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:18px;
+  box-shadow:0 14px 42px rgba(15,23,42,.06);
+  display:grid;
+  grid-template-columns:auto 1.4fr 1fr 1fr 1fr 1fr auto;
+  gap:16px;
+  align-items:center;
+}
+
+.dot{
+  width:18px;
+  height:18px;
+  border-radius:999px;
+  background:var(--red);
+  box-shadow:0 0 0 7px rgba(220,38,38,.10);
+}
+
+.dot.online{
+  background:var(--green);
+  box-shadow:0 0 0 7px rgba(22,163,74,.12);
+}
+
+.dot.instavel{
+  background:var(--yellow);
+  box-shadow:0 0 0 7px rgba(245,158,11,.13);
+}
+
+.nome{
+  min-width:0;
+}
+
+.nome strong{
+  display:block;
+  color:#0f172a;
+  font-size:18px;
+  font-weight:950;
+  letter-spacing:-.04em;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.nome span{
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:800;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.info{
+  min-width:0;
+}
+
+.info small{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:950;
+  text-transform:uppercase;
+  letter-spacing:.07em;
+  margin-bottom:5px;
+}
+
+.info strong{
+  display:block;
+  color:#1e293b;
+  font-size:13px;
+  font-weight:900;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.tag{
+  height:38px;
+  padding:0 13px;
+  border-radius:999px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-transform:uppercase;
+  font-size:12px;
+  font-weight:950;
+  letter-spacing:.05em;
+  white-space:nowrap;
+}
+
+.tag.online{
+  background:#dcfce7;
+  color:#166534;
+}
+
+.tag.instavel{
+  background:#fef3c7;
+  color:#92400e;
+}
+
+.tag.offline{
+  background:#fee2e2;
+  color:#991b1b;
+}
+
+.vazio{
+  background:#fff;
+  border:1px dashed rgba(148,163,184,.45);
+  border-radius:24px;
+  padding:38px;
+  color:var(--muted);
+  font-size:15px;
+  font-weight:850;
+  text-align:center;
+}
+
+.erro{
+  background:#fef2f2;
+  color:#991b1b;
+  border:1px solid #fecaca;
+  border-radius:20px;
+  padding:14px;
+  margin-bottom:18px;
+  font-size:13px;
+  font-weight:800;
+  display:none;
+  white-space:pre-wrap;
+}
+
+.erro.ativo{
+  display:block;
+}
+
+@media(max-width:1180px){
+  .device{
+    grid-template-columns:auto 1fr 1fr;
+  }
+
+  .tag{
+    grid-column:1/4;
+    width:100%;
+  }
+}
+
+@media(max-width:900px){
+  .topo{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .tempoReal{
+    justify-content:flex-start;
+  }
+
+  .resumo{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .filtros{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .filtros button{
+    grid-column:1/3;
+    width:100%;
+  }
+}
+
+@media(max-width:620px){
+  .app{
+    padding:10px;
+  }
+
+  .topo{
+    border-radius:22px;
+    padding:18px;
+  }
+
+  .icone{
+    width:50px;
+    height:50px;
+    border-radius:18px;
+    font-size:25px;
+  }
+
+  .resumo{
+    gap:10px;
+  }
+
+  .cardResumo{
+    border-radius:20px;
+    padding:16px;
+  }
+
+  .filtros{
+    grid-template-columns:1fr;
+  }
+
+  .filtros button{
+    grid-column:auto;
+  }
+
+  .device{
+    grid-template-columns:auto 1fr;
+    gap:12px;
+    border-radius:20px;
+    padding:16px;
+    align-items:flex-start;
+  }
+
+  .device .info{
+    grid-column:2/3;
+  }
+
+  .tag{
+    grid-column:1/3;
+  }
+
+  .nome strong{
+    white-space:normal;
+  }
+}
+</style>
+</head>
+
+<body>
+<main class="app">
+  <header class="topo">
+    <div class="titulo">
+      <div class="icone">📊</div>
+      <div>
+        <h1>Dashboard OTTO</h1>
+        <p class="sub">Dados dos dispositivos recebidos em tempo real</p>
+      </div>
+    </div>
+
+    <div class="tempoReal">
+      <div class="pill">
+        <span id="pulse" class="pulse off"></span>
+        <span id="statusConexao">Desconectado</span>
+      </div>
+
+      <div class="pill" id="ultimaAtualizacao">
+        Última: -
+      </div>
+    </div>
+  </header>
+
+  <section class="resumo">
+    <div class="cardResumo total">
+      <span>Total</span>
+      <strong id="total">0</strong>
+    </div>
+
+    <div class="cardResumo online">
+      <span>Online</span>
+      <strong id="online">0</strong>
+    </div>
+
+    <div class="cardResumo instavel">
+      <span>Instável</span>
+      <strong id="instavel">0</strong>
+    </div>
+
+    <div class="cardResumo offline">
+      <span>Offline</span>
+      <strong id="offline">0</strong>
+    </div>
+  </section>
+
+  <section class="filtros">
+    <input id="busca" placeholder="Buscar nome, empresa, setor, IP..." oninput="filtrarLocal()">
+
+    <select id="empresa" onchange="filtrarLocal()">
+      <option value="">Todas as empresas</option>
+      <option value="MERCATTO RESTAURANTE">MERCATTO RESTAURANTE</option>
+      <option value="MERCATTO EMPORIO">MERCATTO EMPORIO</option>
+      <option value="DELICIA GOURMET">DELICIA GOURMET</option>
+      <option value="PADARIA DELICIA">PADARIA DELICIA</option>
+      <option value="VILLA GOURMET">VILLA GOURMET</option>
+      <option value="M.KIDS">M.KIDS</option>
+    </select>
+
+    <select id="status" onchange="filtrarLocal()">
+      <option value="">Todos os status</option>
+      <option value="online">Online</option>
+      <option value="instavel">Instável</option>
+      <option value="offline">Offline</option>
+    </select>
+
+    <button type="button" onclick="pedirLista()">Atualizar</button>
+  </section>
+
+  <div id="erro" class="erro"></div>
+
+  <section id="lista" class="lista"></section>
+</main>
+
+<script>
+const CONFIG = {
+  SECRET: "otto_audio_2026",
+
+  /*
+    Quando abrir a dashboard pelo próprio servidor Render/Railway, funciona automático.
+    Exemplo:
+    https://otto-audio-ws.onrender.com/dashboard
+
+    Se a dashboard ficar em outro domínio, coloque fixo:
+    WS_URL: "wss://otto-audio-ws.onrender.com"
+  */
+  WS_URL: `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}`
+};
+
+let ws = null;
+let reconnectTimer = null;
+let dispositivosOriginais = [];
+
+const $ = (id) => document.getElementById(id);
+
+function escapar(valor){
+  return String(valor ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+}
+
+function mostrarErro(texto){
+  $("erro").classList.add("ativo");
+  $("erro").textContent = texto;
+}
+
+function limparErro(){
+  $("erro").classList.remove("ativo");
+  $("erro").textContent = "";
+}
+
+function setConectado(ok){
+  $("pulse").classList.toggle("off", !ok);
+  $("statusConexao").textContent = ok ? "Tempo real" : "Desconectado";
+}
+
+function enviar(payload){
+  if(!ws || ws.readyState !== WebSocket.OPEN) return false;
+
+  ws.send(JSON.stringify(payload));
+  return true;
+}
+
+function conectarWS(){
+  if(ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)){
+    return;
+  }
+
+  ws = new WebSocket(CONFIG.WS_URL);
+
+  ws.onopen = () => {
+    setConectado(true);
+    limparErro();
+
+    if(reconnectTimer){
+      clearTimeout(reconnectTimer);
+      reconnectTimer = null;
+    }
+
+    enviar({
+      type:"dashboard-register",
+      secret:CONFIG.SECRET
+    });
+  };
+
+  ws.onmessage = (event) => {
+    let msg = {};
+
+    try{
+      msg = JSON.parse(event.data);
+    }catch(error){
+      return;
+    }
+
+    if(msg.type === "dashboard-ok"){
+      setConectado(true);
+      return;
+    }
+
+    if(msg.type === "devices-list"){
+      dispositivosOriginais = Array.isArray(msg.devices) ? msg.devices : [];
+      $("ultimaAtualizacao").textContent = "Última: " + new Date().toLocaleTimeString("pt-BR");
+      filtrarLocal();
+      return;
+    }
+
+    if(msg.type === "error"){
+      mostrarErro(msg.message || "Erro no servidor.");
+    }
+  };
+
+  ws.onclose = () => {
+    setConectado(false);
+    mostrarErro("Conexão caiu. Tentando reconectar...");
+
+    if(reconnectTimer){
+      clearTimeout(reconnectTimer);
+    }
+
+    reconnectTimer = setTimeout(() => {
+      conectarWS();
+    }, 2500);
+  };
+
+  ws.onerror = () => {
+    setConectado(false);
+    mostrarErro("Erro no WebSocket. Verifique se o servidor está online.");
+  };
+}
+
+function pedirLista(){
+  enviar({
+    type:"devices-list-request",
+    secret:CONFIG.SECRET
+  });
+}
+
+function tempoSemSinal(segundos){
+  const n = Number(segundos || 0);
+
+  if(n <= 3) return "agora";
+  if(n < 60) return n + "s atrás";
+
+  const min = Math.floor(n / 60);
+
+  if(min < 60) return min + "min atrás";
+
+  const horas = Math.floor(min / 60);
+
+  if(horas < 24) return horas + "h atrás";
+
+  const dias = Math.floor(horas / 24);
+
+  return dias + "d atrás";
+}
+
+function formatarData(dataIso){
+  if(!dataIso) return "-";
+
+  try{
+    return new Date(dataIso).toLocaleString("pt-BR");
+  }catch(error){
+    return "-";
+  }
+}
+
+function statusTexto(status){
+  if(status === "online") return "ONLINE";
+  if(status === "instavel") return "INSTÁVEL";
+  return "OFFLINE";
+}
+
+function atualizarResumo(lista){
+  $("total").textContent = lista.length;
+  $("online").textContent = lista.filter((item) => item.status === "online").length;
+  $("instavel").textContent = lista.filter((item) => item.status === "instavel").length;
+  $("offline").textContent = lista.filter((item) => item.status === "offline").length;
+}
+
+function montarCard(item){
+  const status = item.status || "offline";
+
+  return `
+    <article class="device">
+      <div class="dot ${status}"></div>
+
+      <div class="nome">
+        <strong>${escapar(item.nome || "DISPOSITIVO SEM NOME")}</strong>
+        <span>${escapar(item.id || "-")}</span>
+      </div>
+
+      <div class="info">
+        <small>Empresa / Setor</small>
+        <strong>${escapar(item.empresa || "-")} • ${escapar(item.setor || "-")}</strong>
+      </div>
+
+      <div class="info">
+        <small>Unidade / Tipo</small>
+        <strong>${escapar(item.unidade || "-")} • ${escapar(item.tipo || "-")}</strong>
+      </div>
+
+      <div class="info">
+        <small>Sistema</small>
+        <strong>${escapar(item.sistema || "-")} • ${escapar(item.navegador || "-")}</strong>
+      </div>
+
+      <div class="info">
+        <small>Último sinal</small>
+        <strong>${tempoSemSinal(item.segundosSemSinal)} • ${formatarData(item.ultimoSinal)}</strong>
+      </div>
+
+      <div class="info">
+        <small>IP</small>
+        <strong>${escapar(item.ip || "-")}</strong>
+      </div>
+
+      <div class="tag ${status}">
+        ${statusTexto(status)}
+      </div>
+    </article>
+  `;
+}
+
+function renderizar(lista){
+  atualizarResumo(lista);
+
+  const container = $("lista");
+
+  if(!lista.length){
+    container.innerHTML = `
+      <div class="vazio">
+        Nenhum dispositivo encontrado.
+        <br><br>
+        Abra o <b>index</b> no aparelho, preencha os dados e clique em <b>Iniciar envio</b>.
+      </div>
+    `;
+    return;
+  }
+
+  container.innerHTML = lista.map(montarCard).join("");
+}
+
+function filtrarLocal(){
+  const busca = $("busca").value.trim().toLowerCase();
+  const empresa = $("empresa").value.trim();
+  const status = $("status").value.trim();
+
+  let lista = [...dispositivosOriginais];
+
+  if(empresa){
+    lista = lista.filter((item) => item.empresa === empresa);
+  }
+
+  if(status){
+    lista = lista.filter((item) => item.status === status);
+  }
+
+  if(busca){
+    lista = lista.filter((item) => {
+      const texto = [
+        item.id,
+        item.nome,
+        item.empresa,
+        item.unidade,
+        item.setor,
+        item.tipo,
+        item.sistema,
+        item.navegador,
+        item.ip,
+        item.observacao
+      ].join(" ").toLowerCase();
+
+      return texto.includes(busca);
+    });
+  }
+
+  renderizar(lista);
+}
+
+window.pedirLista = pedirLista;
+window.filtrarLocal = filtrarLocal;
+
+conectarWS();
+renderizar([]);
+</script>
+</body>
+</html>

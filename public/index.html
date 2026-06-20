@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>OTTO Dispositivo</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Inter,Arial,sans-serif;
+}
+
+:root{
+  --bg:#061018;
+  --card:#0f1b26;
+  --text:#ffffff;
+  --muted:rgba(255,255,255,.68);
+  --line:rgba(255,255,255,.12);
+  --green:#22c55e;
+  --blue:#38bdf8;
+  --red:#ef4444;
+  --yellow:#f59e0b;
+}
+
+html,body{
+  width:100%;
+  min-height:100%;
+  overflow-x:hidden;
+}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 20% 0%,rgba(56,189,248,.24),transparent 32%),
+    radial-gradient(circle at 90% 20%,rgba(34,197,94,.20),transparent 34%),
+    linear-gradient(135deg,#020617,#0f172a);
+  color:var(--text);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+
+.app{
+  width:min(100%,720px);
+  background:rgba(15,27,38,.86);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:26px;
+  box-shadow:0 24px 80px rgba(0,0,0,.45);
+  backdrop-filter:blur(16px);
+}
+
+.topo{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:14px;
+  margin-bottom:22px;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+
+.icone{
+  width:58px;
+  height:58px;
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  font-size:29px;
+  background:linear-gradient(135deg,var(--blue),var(--green));
+  box-shadow:0 14px 34px rgba(56,189,248,.22);
+  flex:none;
+}
+
+h1{
+  font-size:clamp(28px,6vw,46px);
+  line-height:.95;
+  letter-spacing:-.06em;
+  font-weight:950;
+}
+
+.sub{
+  color:var(--muted);
+  font-weight:800;
+  font-size:13px;
+  margin-top:7px;
+}
+
+.statusTag{
+  height:40px;
+  padding:0 13px;
+  border-radius:999px;
+  border:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:950;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+
+.dot{
+  width:10px;
+  height:10px;
+  border-radius:50%;
+  background:var(--red);
+  box-shadow:0 0 16px var(--red);
+}
+
+.dot.online{
+  background:var(--green);
+  box-shadow:0 0 16px var(--green);
+}
+
+.form{
+  display:grid;
+  gap:13px;
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px;
+}
+
+label{
+  display:grid;
+  gap:7px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:950;
+  text-transform:uppercase;
+  letter-spacing:.06em;
+}
+
+input,select,textarea{
+  width:100%;
+  border:1px solid rgba(255,255,255,.13);
+  background:rgba(255,255,255,.07);
+  color:#fff;
+  border-radius:16px;
+  padding:0 14px;
+  outline:none;
+  font-size:15px;
+  font-weight:850;
+}
+
+input,select{
+  height:52px;
+}
+
+textarea{
+  padding-top:13px;
+  min-height:88px;
+  resize:vertical;
+}
+
+select option{
+  color:#111;
+}
+
+input:focus,select:focus,textarea:focus{
+  border-color:rgba(56,189,248,.85);
+  box-shadow:0 0 0 4px rgba(56,189,248,.12);
+}
+
+.botoes{
+  margin-top:18px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:13px;
+}
+
+button{
+  min-height:54px;
+  border:0;
+  border-radius:17px;
+  font-size:15px;
+  font-weight:950;
+  cursor:pointer;
+}
+
+.btnOn{
+  background:linear-gradient(135deg,var(--green),var(--blue));
+  color:#04110a;
+}
+
+.btnOff{
+  background:rgba(255,255,255,.08);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.14);
+}
+
+.info{
+  margin-top:18px;
+  display:grid;
+  gap:9px;
+}
+
+.item{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:13px 14px;
+  border-radius:16px;
+  border:1px solid rgba(255,255,255,.09);
+  background:rgba(255,255,255,.06);
+  color:var(--muted);
+  font-size:13px;
+  font-weight:850;
+}
+
+.item strong{
+  color:#fff;
+  text-align:right;
+  word-break:break-word;
+}
+
+.aviso{
+  margin-top:16px;
+  color:rgba(255,255,255,.52);
+  font-size:12px;
+  line-height:1.45;
+  font-weight:750;
+}
+
+@media(max-width:640px){
+  body{
+    padding:12px;
+    align-items:stretch;
+  }
+
+  .app{
+    min-height:calc(100vh - 24px);
+    border-radius:22px;
+    padding:20px;
+  }
+
+  .topo{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+  .grid2,.botoes{
+    grid-template-columns:1fr;
+  }
+
+  .statusTag{
+    width:100%;
+    justify-content:center;
+  }
+}
+</style>
+</head>
+
+<body>
+<main class="app">
+  <header class="topo">
+    <div class="logo">
+      <div class="icone">📡</div>
+      <div>
+        <h1>OTTO<br>Dispositivo</h1>
+        <p class="sub">Envio de dados em tempo real para a dashboard</p>
+      </div>
+    </div>
+
+    <div class="statusTag">
+      <span id="dot" class="dot"></span>
+      <span id="statusTag">Offline</span>
+    </div>
+  </header>
+
+  <section class="form">
+    <label>
+      Nome do dispositivo
+      <input id="nome" placeholder="Ex: Celular Cozinha Villa">
+    </label>
+
+    <div class="grid2">
+      <label>
+        Empresa
+        <select id="empresa">
+          <option value="MERCATTO RESTAURANTE">MERCATTO RESTAURANTE</option>
+          <option value="MERCATTO EMPORIO">MERCATTO EMPORIO</option>
+          <option value="DELICIA GOURMET">DELICIA GOURMET</option>
+          <option value="PADARIA DELICIA">PADARIA DELICIA</option>
+          <option value="VILLA GOURMET">VILLA GOURMET</option>
+          <option value="M.KIDS">M.KIDS</option>
+        </select>
+      </label>
+
+      <label>
+        Tipo
+        <select id="tipo">
+          <option value="CELULAR">CELULAR</option>
+          <option value="TABLET">TABLET</option>
+          <option value="COMPUTADOR">COMPUTADOR</option>
+          <option value="TV">TV</option>
+          <option value="TOTEM">TOTEM</option>
+          <option value="OUTRO">OUTRO</option>
+        </select>
+      </label>
+    </div>
+
+    <div class="grid2">
+      <label>
+        Unidade
+        <input id="unidade" placeholder="Ex: Mercatto Delícia">
+      </label>
+
+      <label>
+        Setor
+        <input id="setor" placeholder="Ex: Salão, caixa, cozinha">
+      </label>
+    </div>
+
+    <label>
+      Observação
+      <textarea id="observacao" placeholder="Ex: Dispositivo fixo no caixa principal"></textarea>
+    </label>
+  </section>
+
+  <section class="botoes">
+    <button id="iniciar" class="btnOn" type="button">Iniciar envio</button>
+    <button id="parar" class="btnOff" type="button">Parar envio</button>
+  </section>
+
+  <section class="info">
+    <div class="item">
+      <span>ID</span>
+      <strong id="idTela">-</strong>
+    </div>
+
+    <div class="item">
+      <span>Conexão</span>
+      <strong id="conexaoTela">Desconectado</strong>
+    </div>
+
+    <div class="item">
+      <span>Último envio</span>
+      <strong id="ultimoEnvioTela">-</strong>
+    </div>
+
+    <div class="item">
+      <span>Servidor</span>
+      <strong id="servidorTela">-</strong>
+    </div>
+  </section>
+
+  <p class="aviso">
+    Abra este arquivo no aparelho que deseja registrar. Clique em iniciar envio. A dashboard receberá os dados automaticamente.
+  </p>
+</main>
+
+<script>
+const CONFIG = {
+  SECRET: "otto_audio_2026",
+
+  /*
+    Quando estiver publicado no Render, Railway ou VPS, deixe fixo assim:
+    WS_URL: "wss://otto-audio-ws.onrender.com"
+
+    Como este projeto também serve o index e a dashboard pelo próprio servidor Node,
+    o automático abaixo funciona quando você abre pelo próprio Render.
+  */
+  WS_URL: `${location.protocol === "https:" ? "wss" : "ws"}://${location.host}`,
+
+  HEARTBEAT_MS: 3000
+};
+
+let ws = null;
+let heartbeatTimer = null;
+let reconnectTimer = null;
+let enviando = false;
+let deviceId = null;
+
+const $ = (id) => document.getElementById(id);
+
+function detectarSistema(){
+  const ua = navigator.userAgent.toLowerCase();
+
+  if(ua.includes("windows")) return "Windows";
+  if(ua.includes("android")) return "Android";
+  if(ua.includes("iphone")) return "iPhone";
+  if(ua.includes("ipad")) return "iPad";
+  if(ua.includes("mac os")) return "macOS";
+  if(ua.includes("linux")) return "Linux";
+
+  return "Desconhecido";
+}
+
+function detectarNavegador(){
+  const ua = navigator.userAgent.toLowerCase();
+
+  if(ua.includes("edg/")) return "Microsoft Edge";
+  if(ua.includes("opr/") || ua.includes("opera")) return "Opera";
+  if(ua.includes("chrome") && !ua.includes("edg/")) return "Google Chrome";
+  if(ua.includes("safari") && !ua.includes("chrome")) return "Safari";
+  if(ua.includes("firefox")) return "Firefox";
+
+  return "Desconhecido";
+}
+
+function tipoAutomatico(){
+  const sistema = detectarSistema();
+  const largura = window.innerWidth || screen.width || 0;
+
+  if(sistema === "Android" || sistema === "iPhone"){
+    return largura >= 700 ? "TABLET" : "CELULAR";
+  }
+
+  if(sistema === "iPad") return "TABLET";
+
+  return "COMPUTADOR";
+}
+
+function nomeAutomatico(){
+  const sistema = detectarSistema();
+
+  if(sistema === "Windows") return "COMPUTADOR WINDOWS";
+  if(sistema === "Android") return "CELULAR ANDROID";
+  if(sistema === "iPhone") return "IPHONE";
+  if(sistema === "iPad") return "IPAD";
+  if(sistema === "macOS") return "COMPUTADOR MAC";
+  if(sistema === "Linux") return "COMPUTADOR LINUX";
+
+  return "DISPOSITIVO OTTO";
+}
+
+function gerarId(){
+  const salvo = localStorage.getItem("otto_dispositivo_id");
+
+  if(salvo) return salvo;
+
+  const novo = "OTTO-" + Date.now() + "-" + Math.random().toString(16).slice(2, 8).toUpperCase();
+
+  localStorage.setItem("otto_dispositivo_id", novo);
+
+  return novo;
+}
+
+function carregarCampos(){
+  deviceId = gerarId();
+
+  $("idTela").textContent = deviceId;
+  $("servidorTela").textContent = CONFIG.WS_URL;
+
+  $("nome").value = localStorage.getItem("otto_nome") || nomeAutomatico();
+  $("empresa").value = localStorage.getItem("otto_empresa") || "MERCATTO RESTAURANTE";
+  $("tipo").value = localStorage.getItem("otto_tipo") || tipoAutomatico();
+  $("unidade").value = localStorage.getItem("otto_unidade") || "";
+  $("setor").value = localStorage.getItem("otto_setor") || "";
+  $("observacao").value = localStorage.getItem("otto_observacao") || "";
+}
+
+function salvarCampos(){
+  localStorage.setItem("otto_nome", $("nome").value.trim());
+  localStorage.setItem("otto_empresa", $("empresa").value.trim());
+  localStorage.setItem("otto_tipo", $("tipo").value.trim());
+  localStorage.setItem("otto_unidade", $("unidade").value.trim());
+  localStorage.setItem("otto_setor", $("setor").value.trim());
+  localStorage.setItem("otto_observacao", $("observacao").value.trim());
+}
+
+function payload(type){
+  salvarCampos();
+
+  return {
+    type,
+    secret: CONFIG.SECRET,
+    id: deviceId,
+    nome: $("nome").value.trim() || nomeAutomatico(),
+    empresa: $("empresa").value.trim(),
+    unidade: $("unidade").value.trim(),
+    setor: $("setor").value.trim(),
+    tipo: $("tipo").value.trim(),
+    observacao: $("observacao").value.trim(),
+    navegador: detectarNavegador(),
+    sistema: detectarSistema(),
+    larguraTela: window.screen.width || window.innerWidth || 0,
+    alturaTela: window.screen.height || window.innerHeight || 0
+  };
+}
+
+function setOnline(online){
+  $("dot").classList.toggle("online", online);
+  $("statusTag").textContent = online ? "Online" : "Offline";
+  $("conexaoTela").textContent = online ? "Conectado" : "Desconectado";
+}
+
+function enviar(obj){
+  if(!ws || ws.readyState !== WebSocket.OPEN) return false;
+
+  ws.send(JSON.stringify(obj));
+
+  $("ultimoEnvioTela").textContent = new Date().toLocaleTimeString("pt-BR");
+
+  return true;
+}
+
+function conectarWS(){
+  if(ws && (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING)){
+    return;
+  }
+
+  ws = new WebSocket(CONFIG.WS_URL);
+
+  ws.onopen = () => {
+    setOnline(true);
+
+    if(reconnectTimer){
+      clearTimeout(reconnectTimer);
+      reconnectTimer = null;
+    }
+
+    enviar(payload("device-register"));
+
+    if(heartbeatTimer){
+      clearInterval(heartbeatTimer);
+    }
+
+    heartbeatTimer = setInterval(() => {
+      if(enviando){
+        enviar(payload("device-heartbeat"));
+      }
+    }, CONFIG.HEARTBEAT_MS);
+  };
+
+  ws.onmessage = (event) => {
+    let msg = {};
+
+    try{
+      msg = JSON.parse(event.data);
+    }catch(error){
+      return;
+    }
+
+    if(msg.type === "device-ok"){
+      setOnline(true);
+      return;
+    }
+
+    if(msg.type === "error"){
+      alert(msg.message || "Erro no servidor.");
+    }
+  };
+
+  ws.onclose = () => {
+    setOnline(false);
+
+    if(heartbeatTimer){
+      clearInterval(heartbeatTimer);
+      heartbeatTimer = null;
+    }
+
+    if(enviando){
+      if(reconnectTimer){
+        clearTimeout(reconnectTimer);
+      }
+
+      reconnectTimer = setTimeout(() => {
+        conectarWS();
+      }, 2500);
+    }
+  };
+
+  ws.onerror = () => {
+    setOnline(false);
+  };
+}
+
+function iniciar(){
+  enviando = true;
+  conectarWS();
+
+  if(ws && ws.readyState === WebSocket.OPEN){
+    enviar(payload("device-register"));
+  }
+}
+
+function parar(){
+  enviando = false;
+
+  if(heartbeatTimer){
+    clearInterval(heartbeatTimer);
+    heartbeatTimer = null;
+  }
+
+  if(reconnectTimer){
+    clearTimeout(reconnectTimer);
+    reconnectTimer = null;
+  }
+
+  if(ws){
+    try{
+      ws.close();
+    }catch(error){}
+  }
+
+  setOnline(false);
+}
+
+$("iniciar").addEventListener("click", iniciar);
+$("parar").addEventListener("click", parar);
+
+["nome","empresa","tipo","unidade","setor","observacao"].forEach((id) => {
+  $(id).addEventListener("input", () => {
+    salvarCampos();
+
+    if(enviando){
+      enviar(payload("device-heartbeat"));
+    }
+  });
+
+  $(id).addEventListener("change", () => {
+    salvarCampos();
+
+    if(enviando){
+      enviar(payload("device-heartbeat"));
+    }
+  });
+});
+
+window.addEventListener("online", () => {
+  if(enviando){
+    conectarWS();
+  }
+});
+
+window.addEventListener("offline", () => {
+  setOnline(false);
+});
+
+carregarCampos();
+setOnline(false);
+</script>
+</body>
+</html>
