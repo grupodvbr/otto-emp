@@ -9,7 +9,16 @@
   "dependencies": {
     "node-machine-id": "^1.1.12",
     "ws": "^8.18.0"
+    
   },
+
+
+
+
+
+
+
+  
   "engines": {
     "node": ">=18"
   }
