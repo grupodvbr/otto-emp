@@ -22,6 +22,9 @@ app.use(express.static(PUBLIC_DIR, {
       res.setHeader('Cache-Control', 'public, max-age=60');
     }
   }
+
+
+  
 }));
 
 app.get('/health', (req, res) => {
