@@ -11,13 +11,17 @@ echo ================================================
 echo.
 
 echo Verificando Node.js...
+
+
 node -v >nul 2>&1
+
 if errorlevel 1 (
   echo Node.js nao encontrado.
   echo Instalando Node.js LTS via winget...
   winget install OpenJS.NodeJS.LTS -e --accept-package-agreements --accept-source-agreements
   echo.
   echo Se o comando node ainda nao funcionar, reinicie o computador e rode install.bat novamente.
+
   pause
   exit /b 1
 )
@@ -25,6 +29,7 @@ echo Node.js encontrado.
 
 echo.
 echo Verificando NPM...
+
 npm -v >nul 2>&1
 if errorlevel 1 (
   echo NPM nao encontrado. Reinstale o Node.js LTS.
