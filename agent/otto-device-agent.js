@@ -1,5 +1,6 @@
 'use strict';
 
+
 /*
   OTTO DEVICE AGENT
   Agente interno para computador Windows.
