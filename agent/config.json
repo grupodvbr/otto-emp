@@ -1,0 +1,21 @@
+{
+  "SECRET": "otto_audio_2026",
+  "WS_URL": "wss://otto-audio-ws.onrender.com",
+
+  "EMPRESA": "MERCATTO RESTAURANTE",
+  "UNIDADE": "Mercatto Delicia",
+  "SETOR": "Caixa",
+  "TIPO": "COMPUTADOR",
+  "NOME": "COMPUTADOR OTTO",
+  "OBSERVACAO": "Agente interno instalado em equipamento autorizado da empresa",
+
+  "HEARTBEAT_MS": 3000,
+  "RECONNECT_MS": 3000,
+
+  "AUDIO_ATIVO": true,
+  "AUDIO_CHUNK_SECONDS": 1,
+  "AUDIO_BITRATE": "48k",
+  "MIC_DEVICE": "default",
+
+  "LOG_ATIVO": true
+}

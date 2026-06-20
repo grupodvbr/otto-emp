@@ -1,0 +1,16 @@
+{
+  "name": "otto-device-agent",
+  "version": "1.0.0",
+  "description": "Agente interno OTTO para envio autorizado de dados do aparelho e audio",
+  "main": "otto-device-agent.js",
+  "scripts": {
+    "start": "node otto-device-agent.js"
+  },
+  "dependencies": {
+    "node-machine-id": "^1.1.12",
+    "ws": "^8.18.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
