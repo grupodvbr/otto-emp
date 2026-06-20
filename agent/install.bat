@@ -3,6 +3,7 @@ title Instalador OTTO Device Agent
 color 0A
 cd /d "%~dp0"
 
+
 echo.
 echo ================================================
 echo  INSTALANDO OTTO DEVICE AGENT
