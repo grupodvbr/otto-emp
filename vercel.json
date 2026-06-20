@@ -7,7 +7,6 @@
   ],
   "routes": [
     { "src": "/otto-device.zip", "dest": "/public/otto-device.zip" },
-    
     { "src": "/dashboard", "dest": "/public/dashboard.html" },
     
     { "src": "/dashboard.html", "dest": "/public/dashboard.html" },
