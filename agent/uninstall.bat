@@ -16,3 +16,4 @@ echo Tarefa removida.
 echo Agora voce pode apagar a pasta C:\OTTO-DEVICE
 echo.
 pause
+
