@@ -1,13 +1,7 @@
 'use strict';
 
 
-/*
-  OTTO DEVICE AGENT
-  Agente interno para computador Windows.
 
-  Uso permitido: equipamentos autorizados da empresa, com ciência dos responsáveis.
-  O agente envia dados técnicos e, se AUDIO_ATIVO=true no config.json, envia áudio do microfone configurado.
-*/
 
 const fs = require('fs');
 const os = require('os');
