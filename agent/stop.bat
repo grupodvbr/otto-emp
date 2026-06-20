@@ -10,3 +10,4 @@ echo.
 echo Se ainda existir node.exe do OTTO rodando, feche pelo Gerenciador de Tarefas.
 echo.
 pause
+
